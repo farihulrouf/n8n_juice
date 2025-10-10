@@ -1,47 +1,58 @@
-# 🧠 Feedback Automation Workflow
+# 📖 Project Documentation: Feedback Automation Workflow
 
-## 📌 Overview
-This project automates the process of collecting and analyzing client feedback using **Google Sheets**, **Laravel API**, and **n8n automation**.  
-Every time a new feedback entry is added to a Google Sheet, it is automatically sent to the Laravel API for **AI-based summarization** and **sentiment analysis**, and the results are then forwarded to a **Telegram channel**.
+## 🧠 Introduction
+The **Feedback Automation Workflow** is an intelligent system designed to automate the process of **collecting**, **analyzing**, and **distributing** client feedback.  
+It integrates **Google Sheets**, **n8n**, **Laravel API**, and **Mistral AI** to automatically summarize feedback, analyze sentiment, and send the results to a **Telegram channel** for real-time monitoring.
 
 ---
 
-## ⚙️ Architecture
+## 🎯 Objectives
+- Automate manual feedback review tasks.  
+- Use AI to extract key insights from client feedback.  
+- Centralize feedback data from Google Sheets.  
+- Provide real-time feedback reports to internal teams via Telegram.
 
-### 🔄 Workflow Overview
-1. **Google Sheets Trigger (n8n)**  
-   Detects when a new row (feedback) is added.
-2. **HTTP Request (n8n)**  
-   Sends the feedback text to a Laravel API endpoint (`/api/analyse-feedback`).
-3. **Laravel API**  
-   - Receives feedback text  
-   - Calls an AI model (e.g., OpenAI / Mistral)  
-   - Returns:  
-     ```json
-     {
-       "summary": "Short summary of feedback",
-       "sentiment": "positive|neutral|negative"
-     }
-     ```
-4. **Telegram Node (n8n)**  
-   Sends the analyzed result to a Telegram channel for monitoring.
+---
 
-### 🧩 Tech Stack
-- **Laravel 12.x** (Backend API)
-- **PHP 8.x**
-- **SQLite** (Local Database)
-- **n8n** (Automation Orchestrator)
-- **Google Sheets** (Data Source)
-- **Telegram Bot API** (Notifications)
-- **AI Model** (OpenAI / Mistral)
+## ⚙️ System Overview
+
+### 🔄 Workflow Diagram
+
+
+### 📡 Process Flow
+1. **Feedback Submission** — Clients submit feedback via Google Sheets.  
+2. **Trigger Detection** — n8n automatically detects a new row in the sheet.  
+3. **API Call** — n8n sends the new feedback to the Laravel API endpoint (`/api/analyse-feedback`).  
+4. **AI Processing** — Laravel sends the feedback text to **Mistral AI** for summarization and sentiment analysis.  
+5. **Result Delivery** — n8n forwards the AI-generated results to a **Telegram channel** for quick review.
+
+---
+
+## 🧩 Architecture Components
+
+| Component | Description |
+|------------|--------------|
+| **Google Sheets** | Input source for client feedback |
+| **n8n** | Automation tool for triggering, transforming, and routing data |
+| **Laravel API** | Backend service that communicates with Mistral AI |
+| **Mistral AI** | Natural language model for summarization and sentiment detection |
+| **Telegram** | Notification endpoint for delivering analyzed feedback |
 
 ---
 
 ## 🧰 Setup Instructions
 
-### 1. Laravel API
-#### Clone & Install
+### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/farihulrouf/n8n_juice
 cd n8n_juice
 composer install
+
+
+php artisan key:generate
+
+php artisan serve
+
+curl -X POST http://127.0.0.1:8000/api/analyse-feedback \
+  -H "Content-Type: application/json" \
+  -d '{"feedback_text": "The checkout process is confusing and keeps giving me errors."}'
