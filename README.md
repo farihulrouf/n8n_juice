@@ -20,9 +20,10 @@ Before running the project, please complete **two essential setup steps**:
 9. To get your **Channel ID**, forward any message from that channel to [@userinfobot](https://t.me/userinfobot) — it will show something like `-1001234567890`.  
 10. Copy that **Channel ID**, you’ll use it in the Telegram node inside **n8n**.  
 11. In **n8n**, open the node **“Send a text message”** → click ⚙️ **Credentials** → select **Create new** → paste your bot token → click **Save** → test the connection.
+ you can see video https://github.com/farihulrouf/n8n_juice/blob/main/Screen%20recording%202025-10-10%206.45.46%20PM.webm
 
 ### 🔹 Step 2: Configure Google Sheets
-1. Open the workflow file: `Feedback Automation Workflow.json (https://github.com/farihulrouf/n8n_juice/blob/main/Feedback%20Automation%20Workflow.json)`.  
+1. Open the workflow file: `Feedback Automation Workflow.json (https://github.com/farihulrouf/n8n_juice/blob/main/Feedback%20Automation%20Workflow.jsonS)`.  
 2. Locate this line in the file:  
    `"documentId": "1dpZcIBC0pp4JzgYnwB3BpbYbMiHBa7EiAuTMB0LQM6g"`.  
 3. Replace the `"documentId"` value with **your own Google Sheet ID** (example: `1ABCxyz987654321`).  
