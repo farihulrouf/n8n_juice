@@ -42,6 +42,6 @@ Every time a new feedback entry is added to a Google Sheet, it is automatically 
 ### 1. Laravel API
 #### Clone & Install
 ```bash
-git clone https://github.com/yourusername/feedback-analyzer.git
-cd feedback-analyzer
+git clone https://github.com/farihulrouf/n8n_juice
+cd n8n_juice
 composer install
