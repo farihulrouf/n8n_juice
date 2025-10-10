@@ -1,0 +1,128 @@
+{
+  "name": "Feedback Automation Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1dpZcIBC0pp4JzgYnwB3BpbYbMiHBa7EiAuTMB0LQM6g",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dpZcIBC0pp4JzgYnwB3BpbYbMiHBa7EiAuTMB0LQM6g/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dpZcIBC0pp4JzgYnwB3BpbYbMiHBa7EiAuTMB0LQM6g/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a2c2601e-6e49-4691-8eaf-1b3da501c917",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "3xTsUuHolxwHpry4",
+          "name": "Google Sheets Trigger account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://141.11.25.96:8000/api/analyse-feedback",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\n  \"feedback_text\": \"={{$json[\"feedback_text\"]}}\"\n}\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "82f6fc00-0f57-4973-b3d7-bea205666901",
+      "name": "HTTP Request",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "chatId": "-1003157453635",
+        "text": "=📝 *New Feedback Analysed!* 💬 Summary: {{$json[\"summary\"]}} 😐 Sentiment: {{$json[\"sentiment\"]}}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "5a9b516d-bd23-4efe-8fb5-16532480bf85",
+      "name": "Send a text message",
+      "webhookId": "229baea7-f0ca-4116-a384-67e47546f808",
+      "credentials": {
+        "telegramApi": {
+          "id": "4tF7TbFa5meO34El",
+          "name": "Telegram account 3"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "49845210-49d7-4cbe-9853-ea3968390587",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "725a3e0ccdaf1bac99d038bacd79a68148a55d885cfb642f23ec9d6c65b2ec90"
+  },
+  "id": "1yTaelnsdQPfewWe",
+  "tags": []
+}
