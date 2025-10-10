@@ -56,3 +56,11 @@ php artisan serve
 curl -X POST http://127.0.0.1:8000/api/analyse-feedback \
   -H "Content-Type: application/json" \
   -d '{"feedback_text": "The checkout process is confusing and keeps giving me errors."}'
+
+
+response
+
+{
+  "summary": "Customer mentioned confusion and errors during checkout.",
+  "sentiment": "negative"
+}
